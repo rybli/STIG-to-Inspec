@@ -44,7 +44,7 @@ for vid in root.findall('{http://checklists.nist.gov/xccdf/1.1}Group'):
             # pass
         for description in child.findall('{http://checklists.nist.gov/xccdf/1.1}description'):
             desc = tag_re.sub('', description.text)
-            DESCRIPTION = re_tag.sub('', desc).encode('utf-8')  # Regex to remove broken html/xml tags and not useful data.
+            DESCRIPTION = re_tag.sub('', desc).encode('utf-8')  # Regex removes broken style tags and not useful data.
             # pass
         for fixtext in child.findall('{http://checklists.nist.gov/xccdf/1.1}fixtext'):
             FIXTEXT = fixtext.text.encode('utf-8')
@@ -53,8 +53,7 @@ for vid in root.findall('{http://checklists.nist.gov/xccdf/1.1}Group'):
             for checktext in morechild.findall('{http://checklists.nist.gov/xccdf/1.1}check-content'):
                 CHECKTEXT = checktext.text.encode('utf-8')
                 # pass
-    # print(template.format(VID, TITLE, DESCRIPTION, CHECKTEXT, FIXTEXT))
     inspecfile = open(VID + '.rb', "w")
-    inspecfile.write(template.format(VID, TITLE, DESCRIPTION, CHECKTEXT, FIXTEXT))
+    inspecfile.write(template.format(VID, TITLE, DESCRIPTION, CHECKTEXT.replace('"', "'"), FIXTEXT.replace('"', "'")))
     inspecfile.close()
 
