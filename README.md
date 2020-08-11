@@ -12,4 +12,6 @@ The script creates an individuals .rb file for each STIG item and pre-populates 
 
 Usage: `python STIG-to-Inspec.py -f FILE_PATH_TO_STIG_XML`
 
+
+# Warning
 The script is only intended for initial check creation. Running it again will overwrite any previously created scripts of the same name. Be Careful.
